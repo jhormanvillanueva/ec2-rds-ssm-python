@@ -3,7 +3,7 @@
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![AWS](https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 ## I'm going to deploy the next cloud architecture on AWS
-![arquitectura aws](img/ec2-database.gif)
+![arquitectura aws](img/archi.svg)
 
 
 In this step, I'll be migrating the database on AWS EC2 to AWS RDS.
