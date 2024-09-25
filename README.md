@@ -65,7 +65,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 <hr>
 2. Utilizaré el servicio AWS System Manager para almacenar los parámetros de conexión que utilizará el servidor web para conectarse a la base de datos configurada en AWS RDS.
 
-   - Utilizando AWS System Manager y la opción Parameter Store creo los siguientes parámetros:
+   - Utilizando AWS System Manager y en la opción Parameter Store creo los siguientes parámetros:
       - /book/user: root
       - /book/password: *Test!2024* utilizando el tipo *SecureString*
       - /book/database: books_db
