@@ -119,11 +119,11 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
          pip install mysql-connector-python
          pip install boto3
          ```
-   - Cuando finaliza el lanzamiento de la instancia, me conecto a la terminal y clono este proyecto usando la URL correspondiente:
+   - Cuando finaliza el lanzamiento de la instancia, me conecto a la terminal y clono este repositorio usando la URL correspondiente:
 
-         ```
-         git clone URL
-         ```
+         
+         git clone -URL-
+         
 
    - Para ejecutar el servidor web, ejecuto el siguiente comando en el directorio donde se encuentra app.py. Debe asegurarse de que el grupo de seguridad tenga habilitado el puerto apropiado.
 
