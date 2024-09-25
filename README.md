@@ -133,7 +133,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 - Cuando finalmente se crea AWS RDS, copio el punto de conexión de RDS. Puede actualizar el parámetro /book/host en AWS System Manager.
 <hr>
 
-7. En este paso, migraré la base de datos de AWS EC2 a AWS RDS.
+6. En este paso, migraré la base de datos de AWS EC2 a AWS RDS.
 
 - Desde la terminal de la instancia de AWS EC2, ejecuto los siguientes comandos:
 - Verifico la conexión a AWS RDS desde AWS EC2
@@ -155,4 +155,4 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 
 <hr>
 
-8. Por último, puedes probar si la aplicación se conecta a la base de datos en AWS RDS.
+7. Por último, puedes probar si la aplicación se conecta a la base de datos en AWS RDS.
