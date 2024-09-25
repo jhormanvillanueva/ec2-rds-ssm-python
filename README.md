@@ -131,7 +131,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
          source venv/bin/activate
          python app.py
 
-   - La base de datos no está configurada.La base de datos no está configurada. Voy al directorio llamado db y ejecuto los siguientes comandos
+   - La base de datos no está configurada. Voy al directorio llamado db y ejecuto los siguientes comandos
 
          sudo chmod +x set-root-user.sh createdb.sh
          sudo ./set-root-user.sh
