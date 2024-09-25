@@ -53,7 +53,7 @@ En esta guía, configuraré una nube privada virtual (VPC) para implementar un s
       - Zona de disponibilidad: a
       - CIDR: 192.168.2.0/24
 
-- **PrivateSubnetB**:
+   - **PrivateSubnetB**:
       - Zona de disponibilidad: b
       - CIDR: 192.168.3.0/24
 
