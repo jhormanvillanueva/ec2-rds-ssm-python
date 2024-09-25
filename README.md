@@ -42,20 +42,20 @@ En esta guía, configuraré una nube privada virtual (VPC) para implementar un s
 1. Construiré la arquitectura de red utilizando el servicio AWS VPC.
 
 - Voy a crear una VPC con el siguiente bloque CIDR IPv4
-- 192.168.0.0/16
+   - 192.168.0.0/16
 
 - Voy a crear las tres subredes con los siguientes nombres:
-- **PublicSubnetA**:
-- Zona de disponibilidad: a
-- CIDR: 192.168.1.0/24
+   - **PublicSubnetA**:
+      - Zona de disponibilidad: a
+      - CIDR: 192.168.1.0/24
 
-- **PrivateSubnetA**:
-- Zona de disponibilidad: a
-- CIDR: 192.168.2.0/24
+   - **PrivateSubnetA**:
+      - Zona de disponibilidad: a
+      - CIDR: 192.168.2.0/24
 
 - **PrivateSubnetB**:
-- Zona de disponibilidad: b
-- CIDR: 192.168.3.0/24
+      - Zona de disponibilidad: b
+      - CIDR: 192.168.3.0/24
 
 Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar un **Internet Gateway**.
 - Cuando se crea el Internet Gateway, lo relaciono a la VPC.
@@ -65,16 +65,16 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 <hr>
 2. Utilizaré el servicio AWS System Manager para almacenar los parámetros de conexión que utilizará el servidor web para conectarse a la base de datos configurada en AWS RDS.
 
-- Utilizando AWS System Manager y la opción Parameter Store creo los siguientes parámetros:
-- /book/user: root
-- /book/password: *Test!2024* utilizando el tipo *SecureString*
-- /book/database: books_db
-- /book/host: 192.168.1.23 *La dirección IP donde se encuentra la base de datos. Al crear la base de datos en RDS necesito cambiar esta dirección IP al endpoint proporcionado por RDS*.
+   - Utilizando AWS System Manager y la opción Parameter Store creo los siguientes parámetros:
+      - /book/user: root
+      - /book/password: *Test!2024* utilizando el tipo *SecureString*
+      - /book/database: books_db
+      - /book/host: 192.168.1.23 *La dirección IP donde se encuentra la base de datos. Al crear la base de datos en RDS necesito cambiar esta dirección IP al endpoint proporcionado por RDS*.
 
 - El servidor web se ejecutará en la instancia EC2 y necesita leer los parámetros de conexión a la base de datos implementada en RDS, por lo que necesito crear un rol de IAM que tenga permiso para que EC2 lea los parámetros de conexión desde el servicio System Manager.
-- En el servicio IAM, creo un rol llamado *ec2RoleSSM*.
-- El rol tiene el siguiente permiso:
-- SSMFullAccess
+   - En el servicio IAM, creo un rol llamado *ec2RoleSSM*.
+   - El rol tiene el siguiente permiso:
+      - SSMFullAccess
 
 <hr>
 
@@ -82,64 +82,64 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 
 - El primer grupo de seguridad tiene los siguientes parámetros:
 
-- Nombre: web-server-SG
-- Reglas de entrada:
-- Tipo: TCP personalizado
-- Rango de puertos: 5000
-- Origen: Cualquier lugar
+   - Nombre: web-server-SG
+   - Reglas de entrada:
+      - Tipo: TCP personalizado
+      - Rango de puertos: 5000
+      - Origen: Cualquier lugar
 
 - El segundo grupo de seguridad tiene los siguientes parámetros:
 
-- Nombre: database-SG
-- Reglas de entrada:
-- Tipo: MYSQL/Aurora
-- Rango de puertos: 3306
-- Origen: web-server-SG *El SG del servidor web*
+   - Nombre: database-SG
+   - Reglas de entrada:
+      - Tipo: MYSQL/Aurora
+      - Rango de puertos: 3306
+      - Origen: web-server-SG *El SG del servidor web*
 <hr>
 
 4. Voy al servicio AWS EC2 y lanzo una instancia EC2 en la **PublicSubnet** con las siguientes configuraciones
-- AMI: *Amazon Linux 2023*
-- Tipo de instancia: *t2.micro*
-- Par de claves: asociar un par de claves
-- Configuración de red:
-- VPC
-- Subred pública: habilitar *IP pública*
-- Asociar el grupo de seguridad del servidor web
-- Detalles avanzados:
-- Perfil de instancia de IAM: asociar el rol creado anteriormente
-- Datos del usuario: *copia las siguientes líneas a los datos del usuario*
-```
-#!/bin/bash
-sudo dnf install -y python3.9-pip
-pip install virtualenv
-sudo dnf install -y mariadb105-server
-sudo service mariadb start
-sudo chkconfig mariadb on
-pip install flask
-pip install mysql-connector-python
-pip install boto3
-```
-- Cuando finaliza el lanzamiento de la instancia, me conecto a la terminal y clono este proyecto usando la URL correspondiente:
+   - AMI: *Amazon Linux 2023*
+   - Tipo de instancia: *t2.micro*
+   - Par de claves: asociar un par de claves
+   - Configuración de red:
+      - VPC
+      - Subred pública: habilitar *IP pública*
+      - Asociar el grupo de seguridad del servidor web
+   - Detalles avanzados:
+      - Perfil de instancia de IAM: asociar el rol creado anteriormente
+      - Datos del usuario: *copia las siguientes líneas a los datos del usuario*
+         ```
+         #!/bin/bash
+         sudo dnf install -y python3.9-pip
+         pip install virtualenv
+         sudo dnf install -y mariadb105-server
+         sudo service mariadb start
+         sudo chkconfig mariadb on
+         pip install flask
+         pip install mysql-connector-python
+         pip install boto3
+         ```
+   - Cuando finaliza el lanzamiento de la instancia, me conecto a la terminal y clono este proyecto usando la URL correspondiente:
 
-```
-git clone URL
-```
+         ```
+         git clone URL
+         ```
 
-- Para ejecutar el servidor web, ejecuto el siguiente comando en el directorio donde se encuentra app.py. Debe asegurarse de que el grupo de seguridad tenga habilitado el puerto apropiado.
+   - Para ejecutar el servidor web, ejecuto el siguiente comando en el directorio donde se encuentra app.py. Debe asegurarse de que el grupo de seguridad tenga habilitado el puerto apropiado.
 
-python3 -m virtualenv venv
-source venv/bin/activate
-python app.py
+         python3 -m virtualenv venv
+         source venv/bin/activate
+         python app.py
 
-- La base de datos no está configurada.La base de datos no está configurada. Voy al directorio llamado db y ejecuto los siguientes comandos
+   - La base de datos no está configurada.La base de datos no está configurada. Voy al directorio llamado db y ejecuto los siguientes comandos
 
-sudo chmod +x set-root-user.sh createdb.sh
-sudo ./set-root-user.sh
-sudo ./createdb.sh
-- Puedes comprobar si la base de datos se ha creado ejecutando el siguiente comando:
+         sudo chmod +x set-root-user.sh createdb.sh
+         sudo ./set-root-user.sh
+         sudo ./createdb.sh
+   - Puedes comprobar si la base de datos se ha creado ejecutando el siguiente comando:
 -
-sudo mysql
-show databases;
-use books_db;
-show tables;
-SELECT * FROM Books;
+         sudo mysql
+         show databases;
+         use books_db;
+         show tables;
+         SELECT * FROM Books;
