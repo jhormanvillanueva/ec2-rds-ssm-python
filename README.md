@@ -159,8 +159,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
       - Contraseña maestra: la misma contraseña que creó en AWS System Manager.
       - Nube privada virtual (VPC): la VPC que se creó en el paso uno.
       - Grupo de subredes de base de datos: el grupo de subredes de base de datos creado.
-      - Grupos de seguridad de VPC existentes:
-      - Asocio el grupo de seguridad de base de datos creado en el paso tres.
+      - Grupos de seguridad de VPC existentes: Asocio el grupo de seguridad de base de datos creado en el paso tres.
 
 - Cuando finalmente se crea AWS RDS, copio el punto de conexión de RDS. Puede actualizar el parámetro /book/host en AWS System Manager.
 <hr>
