@@ -125,7 +125,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
          git clone -URL-
          
 
-   - Para ejecutar el servidor web, ejecuto el siguiente comando en el directorio donde se encuentra app.py. Debe asegurarse de que el grupo de seguridad tenga habilitado el puerto apropiado.
+   - Para ejecutar el servidor web, ejecuto el siguiente comando en el directorio donde se encuentra app.py. Debe asegurarse que el grupo de seguridad tenga habilitado el puerto apropiado.
 
          python3 -m virtualenv venv
          source venv/bin/activate
