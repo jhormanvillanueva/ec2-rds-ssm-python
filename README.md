@@ -186,4 +186,4 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 
 <hr>
 
-8. Puedes probar si la aplicación se conecta a la base de datos en AWS RDS.
+8. Por último, puedes probar si la aplicación se conecta a la base de datos en AWS RDS.
