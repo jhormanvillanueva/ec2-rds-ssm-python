@@ -137,9 +137,54 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
          sudo ./set-root-user.sh
          sudo ./createdb.sh
    - Puedes comprobar si la base de datos se ha creado ejecutando el siguiente comando:
--
+
          sudo mysql
          show databases;
          use books_db;
          show tables;
          SELECT * FROM Books;
+   - La base de datos no está configurada en AWS RDS sino en AWS EC2. Por lo tanto, en el siguiente paso, voy a configurar AWS RDS.
+
+<hr>
+
+5. Voy a AWS RDS para configurar el servicio de base de datos relacional.
+
+- Creo un grupo de subredes para privateSubnetA y privateSubnetB.
+- Creo AWS RDS con los siguientes parámetros:
+
+   - Tipo de motor: MariaDB o MySQL
+   - Plantillas: nivel gratuito
+
+      - Nombre de usuario maestro: el mismo usuario que creó en AWS System Manager
+      - Contraseña maestra: la misma contraseña que creó en AWS System Manager.
+      - Nube privada virtual (VPC): la VPC que se creó en el paso uno.
+      - Grupo de subredes de base de datos: el grupo de subredes de base de datos creado.
+      - Grupos de seguridad de VPC existentes:
+      - Asocio el grupo de seguridad de base de datos creado en el paso tres.
+
+- Cuando finalmente se crea AWS RDS, copio el punto de conexión de RDS. Puede actualizar el parámetro /book/host en AWS System Manager.
+<hr>
+
+7. En este paso, migraré la base de datos de AWS EC2 a AWS RDS.
+
+- Desde la terminal de la instancia de AWS EC2, ejecuto los siguientes comandos:
+- Verifico la conexión a AWS RDS desde AWS EC2
+
+      mysql -u root -p --host rds-endpoint
+      show databases;
+
+- Comienzo con la migración con los siguientes comandos:
+
+      mysqldump --databases books_db -u root -p > bookDB.sql
+      mysql -u root -p --host *rds-endpoint* < bookDB.sql
+
+- Puedes verificar si la migración fue exitosa
+
+      mysql -u root -p --host *rds-endpoint*
+      show databases;
+      show tables;
+      SELECT * FROM Books;
+
+<hr>
+
+8. Puedes probar si la aplicación se conecta a la base de datos en AWS RDS.
