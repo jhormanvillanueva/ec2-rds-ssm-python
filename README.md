@@ -149,6 +149,7 @@ Necesito que la VPC tenga una conexión a Internet, por lo que debo configurar u
 - Puedes verificar si la migración fue exitosa
 
       mysql -u root -p --host *rds-endpoint*
+      use books_db;
       show databases;
       show tables;
       SELECT * FROM Books;
